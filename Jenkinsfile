@@ -30,7 +30,15 @@ pipeline{
                     sh "mvn package"
                 }
             }
-        
+    stage("Deploy")
+            {
+                steps{
+                    sshagent(['Atishashauryaa']) {
+                    sh "scp -o StrictHostKeyChecking=no  /home/.jenkins/workspace/Final_project_prod/target/*.jar 3.89.20.209@172.31.91.96:/home/ubuntu/"
+                               
+                 }
+                }
+            }    
     }
     post {
         always{
@@ -40,4 +48,7 @@ pipeline{
         }
 
      }
+}
+sshagent(['Atishashauryaa']) {
+    // some block
 }
